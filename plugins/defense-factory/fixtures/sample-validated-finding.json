@@ -1,0 +1,33 @@
+{
+  "id": "find-val-001",
+  "title": "Unauthenticated debug endpoint exposes configuration",
+  "severity": "high",
+  "status": "validated",
+  "asset_id": "inv-api-payments-01",
+  "discovered_at": "2026-03-16T14:22:00Z",
+  "source_skill": "triage-validate-finding",
+  "cwe": "CWE-489",
+  "description": "Confirmed via authorized dynamic request against staging that /internal/debug/config returns configuration without authentication.",
+  "location": {
+    "path": "src/routes/debug.ts",
+    "line_start": 12,
+    "line_end": 40,
+    "endpoint": "/internal/debug/config"
+  },
+  "evidence": {
+    "reproduction_steps": [
+      "Confirm written authorization for staging payments-api assessment.",
+      "Send GET https://payments.staging.example.internal/internal/debug/config with no Authorization header.",
+      "Observe HTTP 200 with configuration JSON including non-public keys."
+    ],
+    "observed_behavior": "HTTP 200 with configuration payload and no auth challenge.",
+    "expected_behavior": "HTTP 401/403 or route disabled outside local development.",
+    "proof_artifacts": [
+      ".defense-factory/findings/validated/find-val-001/response-headers.txt",
+      ".defense-factory/findings/validated/find-val-001/response-body.redacted.json"
+    ],
+    "dynamic": true,
+    "authorization_ref": "SECURITY.md#authorization + ticket SEC-2241"
+  },
+  "tags": ["validated", "dynamic"]
+}

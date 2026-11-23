@@ -1,0 +1,18 @@
+{
+  "id": "find-cand-001",
+  "title": "Unauthenticated debug endpoint exposes configuration",
+  "severity": "high",
+  "status": "candidate",
+  "asset_id": "inv-api-payments-01",
+  "discovered_at": "2026-03-16T14:22:00Z",
+  "source_skill": "security-scan",
+  "cwe": "CWE-489",
+  "description": "Static analysis reported /internal/debug/config reachable without auth middleware. Not yet dynamically validated.",
+  "location": {
+    "path": "src/routes/debug.ts",
+    "line_start": 12,
+    "line_end": 40,
+    "endpoint": "/internal/debug/config"
+  },
+  "tags": ["static", "candidate"]
+}

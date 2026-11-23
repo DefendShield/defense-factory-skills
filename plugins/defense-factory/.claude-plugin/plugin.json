@@ -1,0 +1,19 @@
+{
+  "name": "defense-factory",
+  "displayName": "Defense Factory Skills",
+  "version": "1.0.0",
+  "description": "Authorized defensive-security workflow skills: define policy, threat-model, inventory, scan, validate, dedupe, route ownership, fix, and verify security findings.",
+  "author": {
+    "name": "Sabareesh VK"
+  },
+  "homepage": "https://github.com/kenhuangus/defense-factory-skills",
+  "license": "MIT",
+  "keywords": [
+    "security",
+    "defensive-security",
+    "appsec",
+    "vulnerability-management",
+    "threat-modeling",
+    "defense-factory"
+  ]
+}

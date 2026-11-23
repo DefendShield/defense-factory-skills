@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/kenhuangus/defense-factory-skills/schemas/inventory-entry.schema.json",
+  "title": "InventoryEntry",
+  "description": "One inventoried asset, service, or attack-surface entry for the Defense Factory Inventory phase.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "asset_type",
+    "owner",
+    "environment",
+    "discovered_at",
+    "source"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Stable identifier, e.g. inv-api-gateway-01"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "service",
+        "api",
+        "repository",
+        "host",
+        "container",
+        "cloud_resource",
+        "identity",
+        "data_store",
+        "dependency",
+        "other"
+      ]
+    },
+    "owner": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Team or person accountable for the asset"
+    },
+    "environment": {
+      "type": "string",
+      "enum": ["production", "staging", "development", "lab", "unknown"]
+    },
+    "discovered_at": {
+      "type": "string",
+      "description": "ISO-8601 timestamp"
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1,
+      "description": "How this entry was discovered (repo scan, cloud inventory, manual)"
+    },
+    "urls": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "repos": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "exposure": {
+      "type": "string",
+      "enum": ["public", "internal", "private", "unknown"]
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+.defense-factory/
+.DS_Store
+Thumbs.db

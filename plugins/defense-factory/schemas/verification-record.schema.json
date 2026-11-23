@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/kenhuangus/defense-factory-skills/schemas/verification-record.schema.json",
+  "title": "VerificationRecord",
+  "description": "Independent post-deploy retest record. A merged PR alone is not remediation complete.",
+  "type": "object",
+  "required": [
+    "id",
+    "finding_id",
+    "verified_at",
+    "verifier",
+    "environment",
+    "result",
+    "retest_method",
+    "evidence"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "finding_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "remediation_ref": {
+      "type": "string",
+      "description": "PR URL, commit SHA, or change ticket — informational only; not sufficient alone"
+    },
+    "verified_at": {
+      "type": "string"
+    },
+    "verifier": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Must be independent of the fix author when feasible"
+    },
+    "environment": {
+      "type": "string",
+      "enum": ["production", "staging", "development", "lab"]
+    },
+    "deployed_version": {
+      "type": "string"
+    },
+    "result": {
+      "type": "string",
+      "enum": ["fixed", "still_vulnerable", "inconclusive", "regressed"]
+    },
+    "retest_method": {
+      "type": "string",
+      "enum": ["dynamic_retest", "authorized_exploit_replay", "integration_test", "manual_check"]
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["summary", "proof_artifacts"],
+      "properties": {
+        "summary": { "type": "string", "minLength": 1 },
+        "proof_artifacts": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "merged_pr_alone_insufficient": {
+      "type": "boolean",
+      "const": true,
+      "description": "Always true: documents that merge is not verification"
+    }
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/kenhuangus/defense-factory-skills/schemas/finding.schema.json",
+  "title": "Finding",
+  "description": "Security finding candidate or validated finding for Discovery and Dynamic validation phases.",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "severity",
+    "status",
+    "asset_id",
+    "discovered_at",
+    "source_skill"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low", "info"]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "candidate",
+        "validated",
+        "duplicate",
+        "false_positive",
+        "wont_fix",
+        "remediating",
+        "fixed_pending_verify",
+        "verified_fixed"
+      ]
+    },
+    "asset_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "References inventory entry id"
+    },
+    "discovered_at": {
+      "type": "string"
+    },
+    "source_skill": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cwe": {
+      "type": "string"
+    },
+    "cve": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "path": { "type": "string" },
+        "line_start": { "type": "integer" },
+        "line_end": { "type": "integer" },
+        "endpoint": { "type": "string" },
+        "component": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "evidence": {
+      "type": "object",
+      "description": "Required for status=validated. Static-only evidence is insufficient for validation.",
+      "properties": {
+        "reproduction_steps": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "observed_behavior": { "type": "string" },
+        "expected_behavior": { "type": "string" },
+        "proof_artifacts": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Paths to logs, screenshots, request/response captures under .defense-factory/"
+        },
+        "dynamic": {
+          "type": "boolean",
+          "description": "Must be true for validated findings"
+        },
+        "authorization_ref": {
+          "type": "string",
+          "description": "Pointer to written authorization for any Red-style reproduction"
+        }
+      },
+      "additionalProperties": true
+    },
+    "duplicate_of": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "status": { "const": "validated" } },
+        "required": ["status"]
+      },
+      "then": {
+        "required": ["evidence"],
+        "properties": {
+          "evidence": {
+            "type": "object",
+            "required": [
+              "reproduction_steps",
+              "observed_behavior",
+              "dynamic",
+              "authorization_ref"
+            ],
+            "properties": {
+              "dynamic": { "const": true }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

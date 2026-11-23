@@ -1,0 +1,14 @@
+{
+  "name": "defense-factory-skills",
+  "description": "Marketplace for the Defense Factory defensive-security skills plugin.",
+  "owner": {
+    "name": "Sabareesh VK"
+  },
+  "plugins": [
+    {
+      "name": "defense-factory",
+      "source": "./plugins/defense-factory",
+      "description": "Authorized defensive-security workflow skills, inventory through verified remediation."
+    }
+  ]
+}

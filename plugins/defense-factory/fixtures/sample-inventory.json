@@ -1,0 +1,30 @@
+{
+  "entries": [
+    {
+      "id": "inv-api-payments-01",
+      "name": "payments-api",
+      "asset_type": "api",
+      "owner": "payments-platform",
+      "environment": "staging",
+      "discovered_at": "2026-03-15T10:00:00Z",
+      "source": "repo-manifest",
+      "urls": ["https://payments.staging.example.internal"],
+      "repos": ["org/payments-api"],
+      "tags": ["pci-adjacent", "authenticated"],
+      "exposure": "internal",
+      "notes": "Sample inventory entry for fixture validation only."
+    },
+    {
+      "id": "inv-repo-payments-api",
+      "name": "org/payments-api",
+      "asset_type": "repository",
+      "owner": "payments-platform",
+      "environment": "development",
+      "discovered_at": "2026-03-15T10:05:00Z",
+      "source": "git-remote-list",
+      "repos": ["org/payments-api"],
+      "tags": ["source"],
+      "exposure": "private"
+    }
+  ]
+}
